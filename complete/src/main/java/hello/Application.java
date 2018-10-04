@@ -14,7 +14,7 @@ public class Application {
 
     public static void main(String[] args) {
         // close the application context to shut down the custom ExecutorService
-        SpringApplication.run(Application.class, args).close();
+        SpringApplication.run(Application.class, args);
     }
 
     @Bean
@@ -24,6 +24,7 @@ public class Application {
         executor.setMaxPoolSize(2);
         executor.setQueueCapacity(500);
         executor.setThreadNamePrefix("GithubLookup-");
+        executor.setTaskDecorator(new MyTaskDecorator());
         executor.initialize();
         return executor;
     }

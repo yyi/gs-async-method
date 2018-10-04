@@ -4,10 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.CompletableFuture;
 
 @Component
+@RestController
 public class AppRunner implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(AppRunner.class);
@@ -37,6 +40,12 @@ public class AppRunner implements CommandLineRunner {
         logger.info("--> " + page2.get());
         logger.info("--> " + page3.get());
 
+    }
+
+    @GetMapping("/test")
+    public CompletableFuture<User> test() throws InterruptedException {
+        logger.info("test control");
+        return gitHubLookupService.findUser("Spring-Projects");
     }
 
 }
